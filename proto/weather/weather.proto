@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package weather_service;
+
+
+option go_package = "github.com/gabe9309/final-project/protos/weather-service;weather_service";
+
+
+message WeatherData {
+  string location = 1;
+  double temperature = 2;
+  string description = 3;
+}
+
+service WeatherService {
+    rpc GetWeather(WeatherData) returns (WeatherData) {}
+}
+
+
