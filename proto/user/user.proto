@@ -39,10 +39,20 @@ message UserUpdateRequest {
 }
 
 message UserUpdateResponse {
+    bool success = 1;
+}
+
+message GetUserRequest {
+    string userId = 1;
+}
+
+message GetUserResponse {
     User user = 1;
 }
 
 service UsersService {
+    rpc UpdateUser(UserUpdateRequest) returns (UserUpdateResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc CreateNewUser(UserCreateRequest) returns (UserCreateResponse);
     rpc UpdateUserLocation(UpdateUserLocationRequest) returns (UpdateUserLocationResponse);
 }

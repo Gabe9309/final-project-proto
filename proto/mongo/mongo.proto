@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package mongo;
+
+option go_package = "github.com/gabe9309/final-project/protos/mongo-service;mongo";
+
+service MongoService {
+  rpc SetupCollection (SetupCollectionRequest) returns (SetupCollectionResponse);
+  rpc InsertDocument (InsertDocumentRequest) returns (InsertDocumentResponse);
+  rpc FindDocuments (FindDocumentsRequest) returns (FindDocumentsResponse);
+}
+
+message SetupCollectionRequest {
+  string database = 1;
+  string collection = 2;
+  int64 ttl = 3;
+  string primary_key = 4;
+}
+
+message SetupCollectionResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message InsertDocumentRequest {
+  string database = 1;
+  string collection = 2;
+  string document = 3;
+}
+
+message InsertDocumentResponse {
+  bool success = 1;
+  string inserted_id = 2;
+  string error = 3;
+}
+
+message FindDocumentsRequest {
+  string database = 1;
+  string collection = 2;
+  string filter = 3;
+}
+
+message FindDocumentsResponse {
+  repeated string documents = 1;
+  string error = 2;
+}

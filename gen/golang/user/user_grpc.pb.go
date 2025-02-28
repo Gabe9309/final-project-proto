@@ -22,6 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersServiceClient interface {
+	UpdateUser(ctx context.Context, in *UserUpdateRequest, opts ...grpc.CallOption) (*UserUpdateResponse, error)
+	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	CreateNewUser(ctx context.Context, in *UserCreateRequest, opts ...grpc.CallOption) (*UserCreateResponse, error)
 	UpdateUserLocation(ctx context.Context, in *UpdateUserLocationRequest, opts ...grpc.CallOption) (*UpdateUserLocationResponse, error)
 }
@@ -32,6 +34,24 @@ type usersServiceClient struct {
 
 func NewUsersServiceClient(cc grpc.ClientConnInterface) UsersServiceClient {
 	return &usersServiceClient{cc}
+}
+
+func (c *usersServiceClient) UpdateUser(ctx context.Context, in *UserUpdateRequest, opts ...grpc.CallOption) (*UserUpdateResponse, error) {
+	out := new(UserUpdateResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UsersService/UpdateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersServiceClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UsersService/GetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *usersServiceClient) CreateNewUser(ctx context.Context, in *UserCreateRequest, opts ...grpc.CallOption) (*UserCreateResponse, error) {
@@ -56,6 +76,8 @@ func (c *usersServiceClient) UpdateUserLocation(ctx context.Context, in *UpdateU
 // All implementations must embed UnimplementedUsersServiceServer
 // for forward compatibility
 type UsersServiceServer interface {
+	UpdateUser(context.Context, *UserUpdateRequest) (*UserUpdateResponse, error)
+	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	CreateNewUser(context.Context, *UserCreateRequest) (*UserCreateResponse, error)
 	UpdateUserLocation(context.Context, *UpdateUserLocationRequest) (*UpdateUserLocationResponse, error)
 	mustEmbedUnimplementedUsersServiceServer()
@@ -65,6 +87,12 @@ type UsersServiceServer interface {
 type UnimplementedUsersServiceServer struct {
 }
 
+func (UnimplementedUsersServiceServer) UpdateUser(context.Context, *UserUpdateRequest) (*UserUpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}
+func (UnimplementedUsersServiceServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
 func (UnimplementedUsersServiceServer) CreateNewUser(context.Context, *UserCreateRequest) (*UserCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNewUser not implemented")
 }
@@ -82,6 +110,42 @@ type UnsafeUsersServiceServer interface {
 
 func RegisterUsersServiceServer(s grpc.ServiceRegistrar, srv UsersServiceServer) {
 	s.RegisterService(&UsersService_ServiceDesc, srv)
+}
+
+func _UsersService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServiceServer).UpdateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UsersService/UpdateUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServiceServer).UpdateUser(ctx, req.(*UserUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UsersService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServiceServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UsersService/GetUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServiceServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _UsersService_CreateNewUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -127,6 +191,14 @@ var UsersService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "user_service.UsersService",
 	HandlerType: (*UsersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "UpdateUser",
+			Handler:    _UsersService_UpdateUser_Handler,
+		},
+		{
+			MethodName: "GetUser",
+			Handler:    _UsersService_GetUser_Handler,
+		},
 		{
 			MethodName: "CreateNewUser",
 			Handler:    _UsersService_CreateNewUser_Handler,
