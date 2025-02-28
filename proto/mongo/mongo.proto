@@ -26,6 +26,7 @@ message InsertDocumentRequest {
   string database = 1;
   string collection = 2;
   string document = 3;
+  bool upsert = 4;
 }
 
 message InsertDocumentResponse {
