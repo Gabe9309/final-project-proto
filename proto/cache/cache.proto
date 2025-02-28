@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package cache;
+
+option go_package = "github.com/gabe9309/final-project/protos/cache-service;cache";
+
+service CacheService {
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Set (SetRequest) returns (SetResponse);
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  bytes value = 1;
+  string error = 2;
+}
+
+message SetRequest {
+  string key = 1;
+  bytes value = 2;
+  int64 ttl = 3;
+}
+
+message SetResponse {
+  bool success = 1;
+  string error = 2;
+}

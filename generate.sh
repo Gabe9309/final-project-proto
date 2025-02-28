@@ -16,10 +16,15 @@ echo "Generating Go protobuf files..."
 protoc -I proto \
     --go_out=paths=source_relative:${GO_OUT_DIR} \
     --go-grpc_out=paths=source_relative:${GO_OUT_DIR} \
-    proto/user/user.proto
+    proto/user/user.proto \
+    proto/weather/weather.proto \
+    proto/cache/cache.proto
 
 echo "Generating Angular (JS/TS) protobuf files..."
-npx protoc --ts_out ${TS_OUT_DIR} --proto_path proto proto/user/user.proto
+npx protoc --ts_out ${TS_OUT_DIR} \
+ --proto_path \
+    proto proto/user/user.proto \
+    proto/weather/weather.proto
 # protoc -I proto \
 #     --plugin="protoc-gen-ts=$(which protoc-gen-ts)" \
 #     --js_out="import_style=commonjs,binary:${TS_OUT_DIR}" \
