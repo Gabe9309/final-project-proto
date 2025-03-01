@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WeatherServiceClient interface {
-	GetWeather(ctx context.Context, in *WeatherData, opts ...grpc.CallOption) (*WeatherData, error)
+	GetCurrentConditions(ctx context.Context, in *GetCurrentConditionsRequest, opts ...grpc.CallOption) (*GetCurrentConditionsResponse, error)
 }
 
 type weatherServiceClient struct {
@@ -33,9 +33,9 @@ func NewWeatherServiceClient(cc grpc.ClientConnInterface) WeatherServiceClient {
 	return &weatherServiceClient{cc}
 }
 
-func (c *weatherServiceClient) GetWeather(ctx context.Context, in *WeatherData, opts ...grpc.CallOption) (*WeatherData, error) {
-	out := new(WeatherData)
-	err := c.cc.Invoke(ctx, "/weather_service.WeatherService/GetWeather", in, out, opts...)
+func (c *weatherServiceClient) GetCurrentConditions(ctx context.Context, in *GetCurrentConditionsRequest, opts ...grpc.CallOption) (*GetCurrentConditionsResponse, error) {
+	out := new(GetCurrentConditionsResponse)
+	err := c.cc.Invoke(ctx, "/weather_service.WeatherService/GetCurrentConditions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *weatherServiceClient) GetWeather(ctx context.Context, in *WeatherData, 
 // All implementations must embed UnimplementedWeatherServiceServer
 // for forward compatibility
 type WeatherServiceServer interface {
-	GetWeather(context.Context, *WeatherData) (*WeatherData, error)
+	GetCurrentConditions(context.Context, *GetCurrentConditionsRequest) (*GetCurrentConditionsResponse, error)
 	mustEmbedUnimplementedWeatherServiceServer()
 }
 
@@ -54,8 +54,8 @@ type WeatherServiceServer interface {
 type UnimplementedWeatherServiceServer struct {
 }
 
-func (UnimplementedWeatherServiceServer) GetWeather(context.Context, *WeatherData) (*WeatherData, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetWeather not implemented")
+func (UnimplementedWeatherServiceServer) GetCurrentConditions(context.Context, *GetCurrentConditionsRequest) (*GetCurrentConditionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentConditions not implemented")
 }
 func (UnimplementedWeatherServiceServer) mustEmbedUnimplementedWeatherServiceServer() {}
 
@@ -70,20 +70,20 @@ func RegisterWeatherServiceServer(s grpc.ServiceRegistrar, srv WeatherServiceSer
 	s.RegisterService(&WeatherService_ServiceDesc, srv)
 }
 
-func _WeatherService_GetWeather_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(WeatherData)
+func _WeatherService_GetCurrentConditions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrentConditionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WeatherServiceServer).GetWeather(ctx, in)
+		return srv.(WeatherServiceServer).GetCurrentConditions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/weather_service.WeatherService/GetWeather",
+		FullMethod: "/weather_service.WeatherService/GetCurrentConditions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WeatherServiceServer).GetWeather(ctx, req.(*WeatherData))
+		return srv.(WeatherServiceServer).GetCurrentConditions(ctx, req.(*GetCurrentConditionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +96,8 @@ var WeatherService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*WeatherServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetWeather",
-			Handler:    _WeatherService_GetWeather_Handler,
+			MethodName: "GetCurrentConditions",
+			Handler:    _WeatherService_GetCurrentConditions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

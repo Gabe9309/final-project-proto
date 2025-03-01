@@ -5,7 +5,8 @@ import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { WeatherService } from "./weather";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
-import type { WeatherData } from "./weather";
+import type { GetCurrentConditionsResponse } from "./weather";
+import type { GetCurrentConditionsRequest } from "./weather";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
@@ -13,9 +14,9 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IWeatherServiceClient {
     /**
-     * @generated from protobuf rpc: GetWeather(weather_service.WeatherData) returns (weather_service.WeatherData);
+     * @generated from protobuf rpc: GetCurrentConditions(weather_service.GetCurrentConditionsRequest) returns (weather_service.GetCurrentConditionsResponse);
      */
-    getWeather(input: WeatherData, options?: RpcOptions): UnaryCall<WeatherData, WeatherData>;
+    getCurrentConditions(input: GetCurrentConditionsRequest, options?: RpcOptions): UnaryCall<GetCurrentConditionsRequest, GetCurrentConditionsResponse>;
 }
 /**
  * @generated from protobuf service weather_service.WeatherService
@@ -27,10 +28,10 @@ export class WeatherServiceClient implements IWeatherServiceClient, ServiceInfo 
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: GetWeather(weather_service.WeatherData) returns (weather_service.WeatherData);
+     * @generated from protobuf rpc: GetCurrentConditions(weather_service.GetCurrentConditionsRequest) returns (weather_service.GetCurrentConditionsResponse);
      */
-    getWeather(input: WeatherData, options?: RpcOptions): UnaryCall<WeatherData, WeatherData> {
+    getCurrentConditions(input: GetCurrentConditionsRequest, options?: RpcOptions): UnaryCall<GetCurrentConditionsRequest, GetCurrentConditionsResponse> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<WeatherData, WeatherData>("unary", this._transport, method, opt, input);
+        return stackIntercept<GetCurrentConditionsRequest, GetCurrentConditionsResponse>("unary", this._transport, method, opt, input);
     }
 }

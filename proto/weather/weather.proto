@@ -12,8 +12,17 @@ message WeatherData {
   string description = 3;
 }
 
+message GetCurrentConditionsRequest {
+  string userId = 1;
+}
+
+message GetCurrentConditionsResponse {
+  WeatherData weatherData = 1;
+}
+
+
 service WeatherService {
-    rpc GetWeather(WeatherData) returns (WeatherData) {}
+    rpc GetCurrentConditions(GetCurrentConditionsRequest) returns (GetCurrentConditionsResponse);
 }
 
 

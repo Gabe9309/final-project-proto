@@ -28,6 +28,24 @@ export interface WeatherData {
      */
     description: string;
 }
+/**
+ * @generated from protobuf message weather_service.GetCurrentConditionsRequest
+ */
+export interface GetCurrentConditionsRequest {
+    /**
+     * @generated from protobuf field: string userId = 1;
+     */
+    userId: string;
+}
+/**
+ * @generated from protobuf message weather_service.GetCurrentConditionsResponse
+ */
+export interface GetCurrentConditionsResponse {
+    /**
+     * @generated from protobuf field: weather_service.WeatherData weatherData = 1;
+     */
+    weatherData?: WeatherData;
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class WeatherData$Type extends MessageType<WeatherData> {
     constructor() {
@@ -91,9 +109,102 @@ class WeatherData$Type extends MessageType<WeatherData> {
  * @generated MessageType for protobuf message weather_service.WeatherData
  */
 export const WeatherData = new WeatherData$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetCurrentConditionsRequest$Type extends MessageType<GetCurrentConditionsRequest> {
+    constructor() {
+        super("weather_service.GetCurrentConditionsRequest", [
+            { no: 1, name: "userId", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<GetCurrentConditionsRequest>): GetCurrentConditionsRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.userId = "";
+        if (value !== undefined)
+            reflectionMergePartial<GetCurrentConditionsRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetCurrentConditionsRequest): GetCurrentConditionsRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string userId */ 1:
+                    message.userId = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetCurrentConditionsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string userId = 1; */
+        if (message.userId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.userId);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message weather_service.GetCurrentConditionsRequest
+ */
+export const GetCurrentConditionsRequest = new GetCurrentConditionsRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetCurrentConditionsResponse$Type extends MessageType<GetCurrentConditionsResponse> {
+    constructor() {
+        super("weather_service.GetCurrentConditionsResponse", [
+            { no: 1, name: "weatherData", kind: "message", T: () => WeatherData }
+        ]);
+    }
+    create(value?: PartialMessage<GetCurrentConditionsResponse>): GetCurrentConditionsResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<GetCurrentConditionsResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetCurrentConditionsResponse): GetCurrentConditionsResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* weather_service.WeatherData weatherData */ 1:
+                    message.weatherData = WeatherData.internalBinaryRead(reader, reader.uint32(), options, message.weatherData);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: GetCurrentConditionsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* weather_service.WeatherData weatherData = 1; */
+        if (message.weatherData)
+            WeatherData.internalBinaryWrite(message.weatherData, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message weather_service.GetCurrentConditionsResponse
+ */
+export const GetCurrentConditionsResponse = new GetCurrentConditionsResponse$Type();
 /**
  * @generated ServiceType for protobuf service weather_service.WeatherService
  */
 export const WeatherService = new ServiceType("weather_service.WeatherService", [
-    { name: "GetWeather", options: {}, I: WeatherData, O: WeatherData }
+    { name: "GetCurrentConditions", options: {}, I: GetCurrentConditionsRequest, O: GetCurrentConditionsResponse }
 ]);
