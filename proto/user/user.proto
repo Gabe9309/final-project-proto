@@ -55,7 +55,7 @@ message RegisterUserResponse {
 }
 
 service UsersService {
-    rpc RegisterUser(RegisterUserRequest) return (RegisterUserResponse);
+    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
     rpc UpdateUser(UserUpdateRequest) returns (UserUpdateResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc UpdateUserLocation(UpdateUserLocationRequest) returns (UpdateUserLocationResponse);

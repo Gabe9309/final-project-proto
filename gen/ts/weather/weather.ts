@@ -33,9 +33,11 @@ export interface WeatherData {
  */
 export interface GetCurrentConditionsRequest {
     /**
-     * @generated from protobuf field: string userId = 1;
+     * string userId = 1;
+     *
+     * @generated from protobuf field: string email = 2;
      */
-    userId: string;
+    email: string;
 }
 /**
  * @generated from protobuf message weather_service.GetCurrentConditionsResponse
@@ -113,12 +115,12 @@ export const WeatherData = new WeatherData$Type();
 class GetCurrentConditionsRequest$Type extends MessageType<GetCurrentConditionsRequest> {
     constructor() {
         super("weather_service.GetCurrentConditionsRequest", [
-            { no: 1, name: "userId", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetCurrentConditionsRequest>): GetCurrentConditionsRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.userId = "";
+        message.email = "";
         if (value !== undefined)
             reflectionMergePartial<GetCurrentConditionsRequest>(this, message, value);
         return message;
@@ -128,8 +130,8 @@ class GetCurrentConditionsRequest$Type extends MessageType<GetCurrentConditionsR
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string userId */ 1:
-                    message.userId = reader.string();
+                case /* string email */ 2:
+                    message.email = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -143,9 +145,9 @@ class GetCurrentConditionsRequest$Type extends MessageType<GetCurrentConditionsR
         return message;
     }
     internalBinaryWrite(message: GetCurrentConditionsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string userId = 1; */
-        if (message.userId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.userId);
+        /* string email = 2; */
+        if (message.email !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.email);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
