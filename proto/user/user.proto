@@ -13,7 +13,7 @@ message User {
     string currentCity = 4;
     double currentLat = 5;
     double currentLong = 6;
-    string CurrentCityCode = 7;
+    //string CurrentCityCode = 7;
 }
 
 message UserCreateRequest {
@@ -29,7 +29,7 @@ message UpdateUserLocationRequest {
     string newCity = 2;
     double newLat = 3;
     double newLong = 4;
-    string newCityCode = 5;
+    //string newCityCode = 5;
 }
 
 message UpdateUserLocationResponse {

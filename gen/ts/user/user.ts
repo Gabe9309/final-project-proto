@@ -38,12 +38,7 @@ export interface User {
     /**
      * @generated from protobuf field: double currentLong = 6;
      */
-    currentLong: number;
-    /**
-     * @generated from protobuf field: string CurrentCityCode = 7 [json_name = "CurrentCityCode"];
-     */
-    currentCityCode: string;
-}
+    currentLong: number; // string CurrentCityCode = 7;}
 /**
  * @generated from protobuf message user_service.UserCreateRequest
  */
@@ -81,12 +76,7 @@ export interface UpdateUserLocationRequest {
     /**
      * @generated from protobuf field: double newLong = 4;
      */
-    newLong: number;
-    /**
-     * @generated from protobuf field: string newCityCode = 5;
-     */
-    newCityCode: string;
-}
+    newLong: number; // string newCityCode = 5;}
 /**
  * @generated from protobuf message user_service.UpdateUserLocationResponse
  */
@@ -141,8 +131,7 @@ class User$Type extends MessageType<User> {
             { no: 3, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "currentCity", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 5, name: "currentLat", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 6, name: "currentLong", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 7, name: "CurrentCityCode", kind: "scalar", jsonName: "CurrentCityCode", T: 9 /*ScalarType.STRING*/ }
+            { no: 6, name: "currentLong", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ }
         ]);
     }
     create(value?: PartialMessage<User>): User {
@@ -152,7 +141,6 @@ class User$Type extends MessageType<User> {
         message.currentCity = "";
         message.currentLat = 0;
         message.currentLong = 0;
-        message.currentCityCode = "";
         if (value !== undefined)
             reflectionMergePartial<User>(this, message, value);
         return message;
@@ -179,9 +167,6 @@ class User$Type extends MessageType<User> {
                     break;
                 case /* double currentLong */ 6:
                     message.currentLong = reader.double();
-                    break;
-                case /* string CurrentCityCode = 7 [json_name = "CurrentCityCode"];*/ 7:
-                    message.currentCityCode = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -213,9 +198,6 @@ class User$Type extends MessageType<User> {
         /* double currentLong = 6; */
         if (message.currentLong !== 0)
             writer.tag(6, WireType.Bit64).double(message.currentLong);
-        /* string CurrentCityCode = 7 [json_name = "CurrentCityCode"]; */
-        if (message.currentCityCode !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.currentCityCode);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -325,8 +307,7 @@ class UpdateUserLocationRequest$Type extends MessageType<UpdateUserLocationReque
             { no: 1, name: "userId", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "newCity", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "newLat", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 4, name: "newLong", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ },
-            { no: 5, name: "newCityCode", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "newLong", kind: "scalar", T: 1 /*ScalarType.DOUBLE*/ }
         ]);
     }
     create(value?: PartialMessage<UpdateUserLocationRequest>): UpdateUserLocationRequest {
@@ -335,7 +316,6 @@ class UpdateUserLocationRequest$Type extends MessageType<UpdateUserLocationReque
         message.newCity = "";
         message.newLat = 0;
         message.newLong = 0;
-        message.newCityCode = "";
         if (value !== undefined)
             reflectionMergePartial<UpdateUserLocationRequest>(this, message, value);
         return message;
@@ -356,9 +336,6 @@ class UpdateUserLocationRequest$Type extends MessageType<UpdateUserLocationReque
                     break;
                 case /* double newLong */ 4:
                     message.newLong = reader.double();
-                    break;
-                case /* string newCityCode */ 5:
-                    message.newCityCode = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -384,9 +361,6 @@ class UpdateUserLocationRequest$Type extends MessageType<UpdateUserLocationReque
         /* double newLong = 4; */
         if (message.newLong !== 0)
             writer.tag(4, WireType.Bit64).double(message.newLong);
-        /* string newCityCode = 5; */
-        if (message.newCityCode !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.newCityCode);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
