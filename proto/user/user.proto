@@ -16,20 +16,13 @@ message User {
     //string CurrentCityCode = 7;
 }
 
-message UserCreateRequest {
-    User user = 1;
-}
-
-message UserCreateResponse {
-    User user = 1;
-}
-
 message UpdateUserLocationRequest {
     string userId = 1;
     string newCity = 2;
     double newLat = 3;
     double newLong = 4;
     //string newCityCode = 5;
+    string email = 6;
 }
 
 message UpdateUserLocationResponse {
@@ -45,16 +38,25 @@ message UserUpdateResponse {
 }
 
 message GetUserRequest {
-    string userId = 1;
+    //string userId = 1;
+    string email = 2;
 }
 
 message GetUserResponse {
     User user = 1;
 }
 
+message RegisterUserRequest {
+    User user = 1;
+}
+
+message RegisterUserResponse {
+    bool success = 1;
+}
+
 service UsersService {
+    rpc RegisterUser(RegisterUserRequest) return (RegisterUserResponse);
     rpc UpdateUser(UserUpdateRequest) returns (UserUpdateResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
-    rpc CreateNewUser(UserCreateRequest) returns (UserCreateResponse);
     rpc UpdateUserLocation(UpdateUserLocationRequest) returns (UpdateUserLocationResponse);
 }

@@ -13,7 +13,8 @@ message WeatherData {
 }
 
 message GetCurrentConditionsRequest {
-  string userId = 1;
+  //string userId = 1;
+  string email = 2;
 }
 
 message GetCurrentConditionsResponse {
